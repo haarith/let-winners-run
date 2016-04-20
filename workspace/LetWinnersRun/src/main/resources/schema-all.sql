@@ -4,5 +4,6 @@ CREATE TABLE trades (
 	txn_date date,
 	ticker varchar(10),
 	txn_type varchar(5),
-	txn_price double
+	txn_price double,
+	notes varchar(20)
 );
