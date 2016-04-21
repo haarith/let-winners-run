@@ -4,6 +4,7 @@
 *gradle*
 !*build.gradle
 *.project
+workspace/test
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

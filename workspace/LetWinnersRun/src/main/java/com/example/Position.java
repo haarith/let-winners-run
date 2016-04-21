@@ -3,7 +3,7 @@ package com.example;
 public class Position {
 	
 	String ticker;
-	double numOfShares;
+	int numOfShares;
 	double purchasePrice;
 	
 	public String getTicker() {
@@ -12,10 +12,10 @@ public class Position {
 	public void setTicker(String ticker) {
 		this.ticker = ticker;
 	}
-	public double getNumOfShares() {
+	public int getNumOfShares() {
 		return numOfShares;
 	}
-	public void setNumOfShares(double numOfShares) {
+	public void setNumOfShares(int numOfShares) {
 		this.numOfShares = numOfShares;
 	}
 	public double getPurchasePrice() {
