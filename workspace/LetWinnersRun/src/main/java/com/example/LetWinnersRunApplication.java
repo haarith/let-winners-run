@@ -75,6 +75,7 @@ public class LetWinnersRunApplication implements CommandLineRunner {
 	double totalCommissionPaid = 0;
 	double totalSlippagePaid = 0;
 	double idealPositionSize;
+	double letWinnersRunBuyAmount = 0;
 	Date simulationStartDate = new Date();
 	Date simulationEndDate = new Date();
 	
@@ -215,6 +216,8 @@ public class LetWinnersRunApplication implements CommandLineRunner {
 	 */
 	private void processNewBuysForWeek(Date weekStartDate) {
 		List<Trade> tradesList = jdbcTemplate.query(selectNewBuysForWeekSql, new TradeMapper(), weekStartDate);
+		int numBuys = tradesList.size();
+		letWinnersRunBuyAmount = portfolioCash/numBuys;
 		if (null != tradesList) {
 			for (Trade trade:tradesList) {
 				double txnPrice = trade.getTxnPrice();
@@ -291,7 +294,13 @@ public class LetWinnersRunApplication implements CommandLineRunner {
 
 	private void addPositionToPortfolio(String ticker, double txnPrice) {
 		log.debug("Going to add " + ticker + " to portfolio");
-		double amountToBuy = idealPositionSize;
+		double amountToBuy;
+		if (letWinnersRun) {
+			amountToBuy = letWinnersRunBuyAmount;
+		}
+		else {
+			amountToBuy = idealPositionSize;
+		}
 		if (amountToBuy < 0) {
 			negativePositionSizeCounter++;
 			log.info("Negative trade amount found!!!");
